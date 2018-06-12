@@ -4,6 +4,8 @@ Config and environment setup scripts for OSX.
 
 Credit to [Ryan Bates'](https://github.com/ryanb) excellent dotfiles. Basically I used it verbatim for git, zsh, Gem, and VIM config, then added Powerline font installation and a Bash script to install additional stuff I use. See Features section below for more info.
 
+__PLEASE NOTE: This was created for my personal use and may have undesired effects on your environment. Please back up your current configuration and read through the source and prompts to see what is happening before you proceed.__
+
 ## Installation
 
 1. Download and install via command line
@@ -12,8 +14,8 @@ git clone git://github.com/joshgking/dotfiles ~/.dotfiles
 cd ~/.dotfiles
 sh install_env
 ```
-1. You will be promoted before each step. Please read these steps carefully and be aware that skipping brew installation will result in other tasks failing if you don't have it installed already.
-1. After running the install above, open a new terminal window or tab to see the changes.
+2. You will be promoted before each step. Please read these steps carefully and be aware that skipping brew installation will result in other tasks failing if you don't have it installed already.
+3. After running the install above, open a new terminal window or tab to see the changes.
 
 ## Features
 
