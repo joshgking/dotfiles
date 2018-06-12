@@ -1,0 +1,64 @@
+#!/bin/bash
+
+rake install
+rake_status=$?
+
+if [[ $rake_status = 0 ]]; then
+    if ! [[ $PATH =~ (?:^|:)(\/usr\/local\/bin)(?:$|:) ]]; then
+        echo "Adding /usr/local/bin to PATH"
+        export PATH=/usr/local/bin:$PATH
+    fi
+
+    if [[ -n $(which brew) ]]; then
+        echo "Brew installed"
+    else
+        read -p "Install brew? [ynq]" doBrew
+        if [[ $doBrew = "y" ]]; then
+            echo "INSTALLING BREW"
+            /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+        elif [[ $doBrew = "q" ]]; then
+            exit 0
+        fi
+    fi
+
+    if [[ -n $(which python3) ]]; then
+        echo "Python installed"
+    else
+        read -p "Install Python with pip? [ynq]" doPy
+        if [[ $doPy = "y" ]]; then
+            echo "INSTALLING PYTHON 3"
+            brew install python
+        elif [[ $doPy = "q" ]]; then
+            exit 0
+        fi
+    fi
+
+    if [[ -n $(which n) ]]; then
+        echo "n nad node installed"
+    else
+        read -p "Install n and node? [ynq]" doNode
+        if [[ $doNode = "y" ]]; then
+            echo "INSTALLING NODEJS AND NPM"
+            curl -L https://git.io/n-install | bash
+        elif [[ $doNode = "q" ]]; then
+            exit 0
+        fi
+    fi
+
+    if [[ -n $(ls $HOME/Applications | grep "Visual Studio Code") ]]; then 
+        echo "VS Code installed"
+    else 
+        read -p "Install VS Code? [ynq]" doCode
+        if [[ $doCode = "y" ]]; then
+            echo "INSTALLING CODE"
+            brew cask install visual-studio-code
+        elif [[ $doCode = "q" ]]; then
+            exit 0
+        fi
+    fi
+else
+    exit 0
+fi
+
+
+
