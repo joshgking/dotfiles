@@ -12,13 +12,13 @@ git clone git://github.com/joshgking/dotfiles ~/.dotfiles
 cd ~/.dotfiles
 sh install_env
 ```
-2. You will be promoted before each step. Please read these steps carefully and be aware that skipping brew installation will result in other tasks failing if you don't have it installed already.
+2. You will be prompted before each step. Please read these steps carefully and be aware that skipping brew installation will result in other tasks failing if you don't have it installed already.
 3. After running the install above, open a new terminal window or tab to see the changes.
 
 ## Features
 
 * oh-my-zsh with Agnoster theme set by default
-* Powerline Fonts to completment Agnoster theme
+* Powerline Fonts to complement Agnoster theme
 * Latest stable version of NodeJS and npm installed via n and n-install (https://github.com/tj/n)
 * Homebrew package manager
 * Python 3 with pip (installed via Homebrew)
