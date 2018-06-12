@@ -1,6 +1,4 @@
-# My dotfiles
-
-Config and environment setup scripts for OSX.
+# dotfiles
 
 Credit to [Ryan Bates'](https://github.com/ryanb) excellent dotfiles. Basically I used it verbatim for git, zsh, Gem, and VIM config, then added Powerline font installation and a Bash script to install additional stuff I use. See Features section below for more info.
 
