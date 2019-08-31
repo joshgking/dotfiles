@@ -1,4 +1,55 @@
-#!/bin/bash
+#! /bin/bash
+
+echo "UPDATING APT INDEX"
+apt update
+
+if [[ -n $(which curl) ]]; then
+    echo "Curl installed"
+else
+    read -p "Install Curl? (required to continue) [yq]" doCurl
+    if [[ $doCurl = "y" ]]; then
+        echo "INSTALLING CURL"
+        apt install curl
+    elif [[ $doCurl = "q" ]]; then
+        exit 0
+    fi
+fi
+
+if [[ -n $(which git) ]]; then
+    echo "Git installed"
+else
+    read -p "Install Git? (required to continue) [yq]" doGit
+    if [[ $doGit = "y" ]]; then
+        echo "INSTALLING GIT"
+        apt install git
+    elif [[ $doGit = "q" ]]; then
+        exit 0
+    fi
+fi
+
+if [[ (-n $(which ruby)) || (-n $(which gem)) ]]; then
+    echo "Ruby installed"
+else
+    read -p "Install Ruby? (required to continue) [yq]" doRuby
+    if [[ $doRuby = "y" ]]; then
+        echo "INSTALLING RUBY"
+        apt install ruby-full
+    elif [[ $doRuby = "q" ]]; then
+        exit 0
+    fi
+fi
+
+if [[ -n $(which rake) ]]; then
+    echo "Rake installed"
+else
+    read -p "Install Rake? (required to continue) [yq]" doRake
+    if [[ $doRake = "y" ]]; then
+        echo "INSTALLING RAKE"
+        apt install ruby-full
+    elif [[ $doRake = "q" ]]; then
+        exit 0
+    fi
+fi
 
 rake install
 rake_status=$?
@@ -9,50 +60,65 @@ if [[ $rake_status = 0 ]]; then
         export PATH=/usr/local/bin:$PATH
     fi
 
-    if [[ -n $(which brew) ]]; then
-        echo "Brew installed"
-    else
-        read -p "Install brew? [ynq]" doBrew
-        if [[ $doBrew = "y" ]]; then
-            echo "INSTALLING BREW"
-            /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-        elif [[ $doBrew = "q" ]]; then
-            exit 0
-        fi
-    fi
-
     if [[ -n $(which python3) ]]; then
         echo "Python installed"
     else
         read -p "Install Python with pip? [ynq]" doPy
         if [[ $doPy = "y" ]]; then
             echo "INSTALLING PYTHON 3"
-            brew install python
+            apt install python
         elif [[ $doPy = "q" ]]; then
             exit 0
         fi
     fi
 
     if [[ -n $(which n) ]]; then
-        echo "n nad node installed"
+        echo "n and node installed"
     else
-        read -p "Install n and node? [ynq]" doNode
+        read -p "Install n and node? (installs build-essentials for make dependency if needed) [ynq]" doNode
         if [[ $doNode = "y" ]]; then
+            if [[ -n $(which make) ]]; then
+                echo "MAKE INSTALLED"
+            else 
+                echo "INSTALLING BUILD ESSENTIAL"
+                apt install build-essential
+            fi
             echo "INSTALLING NODEJS AND NPM"
-            curl -L https://git.io/n-install | bash
+            git clone https://github.com/tj/n.git
+            cd n
+            PREFIX=$HOME/.n make install
+            cd ..
+            sudo rm -rf ./n
+            n latest
+            n lts
         elif [[ $doNode = "q" ]]; then
             exit 0
         fi
     fi
 
-    if [[ -n $(ls $HOME/Applications | grep "Visual Studio Code") ]]; then 
+    if [[ -n $(which code) ]]; then 
         echo "VS Code installed"
     else 
         read -p "Install VS Code? [ynq]" doCode
         if [[ $doCode = "y" ]]; then
             echo "INSTALLING CODE"
-            brew cask install visual-studio-code
+            curl -L -o vscode.deb https://go.microsoft.com/fwlink/?LinkID=760868
+            apt install ./vscode.deb
         elif [[ $doCode = "q" ]]; then
+            exit 0
+        fi
+    fi
+
+    if [[ -n $(ls /usr/bin | grep "gnome-terminal") ]]; then
+        echo "Gnome-Terminal installed"
+    else 
+        read -p "Install Gnome-Terminal? [ynq]" doGnome
+        if [[ $doGnome = "y" ]]; then
+            echo "INSTALLING GNOME-TERMINAL"
+            apt install gnome-terminal
+            # This is needed to show the icon in Chrome OS desktop
+            cp ./gnome-terminal.desktop /usr/share/applications/
+        elif [[ $doGnome = "q" ]]; then
             exit 0
         fi
     fi
