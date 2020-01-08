@@ -3,6 +3,7 @@ require 'erb'
 
 desc "install the dot files into user's home directory"
 task :install do
+  install_zsh
   install_oh_my_zsh
   switch_to_zsh
   install_powerline_fonts
@@ -64,6 +65,23 @@ def link_file(file)
   else
     puts "linking ~/.#{file}"
     system %Q{ln -s "$PWD/#{file}" "$HOME/.#{file}"}
+  end
+end
+
+def install_zsh
+  if `which zsh` =~ /zsh/
+    puts "found zsh"
+  else
+    print "install zsh? [ynq] "
+    case $stdin.gets.chomp
+    when 'y'
+      puts "installing zsh"
+      system %Q{apt install zsh}
+    when 'q'
+      abort("Rake execution cancelled")
+    else
+      puts "skipping zsh"
+    end
   end
 end
 
