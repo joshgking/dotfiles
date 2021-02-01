@@ -5,8 +5,6 @@ DISABLE_LS_COLORS="true"
 DEFAULT_USER="$(whoami)"
 prompt_context(){}
 
-plugins=(git bundler brew gem rbates)
-
 export EDITOR='mate -w'
 
 source $ZSH/oh-my-zsh.sh
