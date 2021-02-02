@@ -86,7 +86,7 @@ def install_zsh
 end
 
 def switch_to_zsh
-  if ENV["SHELL"] =~ /zsh/
+  if (`which $SHELL` =~ /zsh/) != nil
     puts "using zsh"
   else
     print "switch to zsh? (recommended) [ynq] "
