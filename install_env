@@ -88,8 +88,9 @@ if [[ $rake_status = 0 ]]; then
             cd n
             PREFIX=$HOME/.n make install
             cd ..
-            sudo rm -rf ./n
-            export PATH=$HOME/.n/bin:$PATH
+            sudo rm -rf ./n  
+            export N_PREFIX=$HOME/.n
+            export PATH=$N_PREFIX/bin:$PATH
             . /etc/environment
             n latest
             n lts
