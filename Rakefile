@@ -76,7 +76,7 @@ def install_zsh
     case $stdin.gets.chomp
     when 'y'
       puts "installing zsh"
-      system %Q{apt install zsh}
+      system %Q{sudo apt install zsh}
     when 'q'
       abort("Rake execution cancelled")
     else
