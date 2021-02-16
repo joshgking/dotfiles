@@ -84,11 +84,11 @@ if [[ $rake_status = 0 ]]; then
                 sudo apt install build-essential
             fi
             echo "INSTALLING NODEJS AND NPM"
-            git clone https://github.com/tj/n.git
-            cd n
+            git clone https://github.com/tj/n.git "$HOME/n"
+            cd $HOME/n
             PREFIX=$HOME/.n make install
             cd ..
-            sudo rm -rf ./n  
+            sudo rm -rf $HOME/n  
             export N_PREFIX=$HOME/.n
             export PATH=$N_PREFIX/bin:$PATH
             . /etc/environment
