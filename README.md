@@ -10,7 +10,7 @@ __PLEASE NOTE: This was created for my personal use and may have undesired effec
 ```terminal
 git clone git://github.com/joshgking/dotfiles ~/.dotfiles
 cd ~/.dotfiles
-./install_env
+. ./install_env
 ```
 2. You will be prompted before each step. Please read these steps carefully and be aware that skipping brew installation will result in other tasks failing if you don't have it installed already.
 3. After running the install above, open a new terminal window or tab to see the changes.
