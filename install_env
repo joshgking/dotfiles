@@ -84,13 +84,8 @@ if [[ $rake_status = 0 ]]; then
                 apt install build-essential
             fi
             echo "INSTALLING NODEJS AND NPM"
-            git clone https://github.com/tj/n.git
-            cd n
-            PREFIX=$HOME/.n make install
-            cd ..
-            sudo rm -rf ./n
-            n latest
-            n lts
+            curl -L https://git.io/n-install | bash
+            source /home/jking/.zshrc
         elif [[ $doNode = "q" ]]; then
             exit 0
         fi
@@ -103,7 +98,7 @@ if [[ $rake_status = 0 ]]; then
         if [[ $doCode = "y" ]]; then
             echo "INSTALLING CODE"
             curl -L -o vscode.deb https://go.microsoft.com/fwlink/?LinkID=760868
-            apt install ./vscode.deb
+            sudo apt install ./vscode.deb
         elif [[ $doCode = "q" ]]; then
             exit 0
         fi

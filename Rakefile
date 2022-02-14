@@ -89,11 +89,12 @@ def switch_to_zsh
   if ENV["SHELL"] =~ /zsh/
     puts "using zsh"
   else
-    print "switch to zsh? (recommended) [ynq] "
+    print "switch to zsh? Will require you to continue installation in a new terminal window/tab (recommended)[ynq] "
     case $stdin.gets.chomp
     when 'y'
       puts "switching to zsh"
-      system %Q{chsh -s `which zsh`}
+      system %Q{sudo chsh -s `which zsh` `whoami`}
+      abort("Installation quit early. You'll need to open a new terminal window/tab and run ./install_env again to finish installation with zsh.")
     when 'q'
       abort("Rake execution cancelled")
     else
