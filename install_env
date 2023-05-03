@@ -9,7 +9,7 @@ else
     read -p "Install Curl? (required to continue) [yq]" doCurl
     if [[ $doCurl = "y" ]]; then
         echo "INSTALLING CURL"
-        apt install curl
+        sudo apt install curl
     elif [[ $doCurl = "q" ]]; then
         exit 0
     fi
@@ -21,7 +21,7 @@ else
     read -p "Install Git? (required to continue) [yq]" doGit
     if [[ $doGit = "y" ]]; then
         echo "INSTALLING GIT"
-        apt install git
+        sudo apt install git
     elif [[ $doGit = "q" ]]; then
         exit 0
     fi
@@ -33,7 +33,7 @@ else
     read -p "Install Ruby? (required to continue) [yq]" doRuby
     if [[ $doRuby = "y" ]]; then
         echo "INSTALLING RUBY"
-        apt install ruby-full
+        sudo apt install ruby-full
     elif [[ $doRuby = "q" ]]; then
         exit 0
     fi
@@ -45,7 +45,7 @@ else
     read -p "Install Rake? (required to continue) [yq]" doRake
     if [[ $doRake = "y" ]]; then
         echo "INSTALLING RAKE"
-        apt install ruby-full
+        sudo apt install ruby-full
     elif [[ $doRake = "q" ]]; then
         exit 0
     fi
@@ -63,10 +63,49 @@ if [[ $rake_status = 0 ]]; then
     if [[ -n $(which python3) ]]; then
         echo "Python installed"
     else
-        read -p "Install Python with pip? [ynq]" doPy
+        read -p "Install Python? [ynq]" doPy
         if [[ $doPy = "y" ]]; then
             echo "INSTALLING PYTHON 3"
-            apt install python
+            sudo apt install python3
+        elif [[ $doPy = "q" ]]; then
+            exit 0
+        fi
+    fi
+
+    if [[ -n $(which pip3) ]]; then
+        echo "Pip installed"
+    else
+        read -p "Install Pip? [ynq]" doPy
+        if [[ $doPy = "y" ]]; then
+            echo "INSTALLING pip3"
+            sudo apt install python3-pip
+        elif [[ $doPy = "q" ]]; then
+            exit 0
+        fi
+    fi
+
+    if [[ -n $(which pipx) ]]; then
+        echo "Pipx installed"
+    else
+        read -p "Install Pipx? [ynq]" doPy
+        if [[ $doPy = "y" ]]; then
+            echo "INSTALLING pipx"
+            pip3 install --user pipx
+            source /home/jking/.zshrc
+            pipx ensurepath
+        elif [[ $doPy = "q" ]]; then
+            exit 0
+        fi
+    fi
+
+    if [[ -n $(which poetry) ]]; then
+        echo "poetry installed"
+    else
+        read -p "Install poetry? [ynq]" doPy
+        if [[ $doPy = "y" ]]; then
+            echo "INSTALLING poetry"
+            sudo apt install python3-venv
+            pipx install poetry
         elif [[ $doPy = "q" ]]; then
             exit 0
         fi
@@ -81,7 +120,7 @@ if [[ $rake_status = 0 ]]; then
                 echo "MAKE INSTALLED"
             else 
                 echo "INSTALLING BUILD ESSENTIAL"
-                apt install build-essential
+                sudo apt install build-essential
             fi
             echo "INSTALLING NODEJS AND NPM"
             curl -L https://git.io/n-install | bash
@@ -98,7 +137,7 @@ if [[ $rake_status = 0 ]]; then
         if [[ $doCode = "y" ]]; then
             echo "INSTALLING CODE"
             curl -L -o vscode.deb https://go.microsoft.com/fwlink/?LinkID=760868
-            sudo apt install ./vscode.deb
+            sudo sudo apt install ./vscode.deb
         elif [[ $doCode = "q" ]]; then
             exit 0
         fi
@@ -110,7 +149,7 @@ if [[ $rake_status = 0 ]]; then
         read -p "Install Gnome-Terminal? [ynq]" doGnome
         if [[ $doGnome = "y" ]]; then
             echo "INSTALLING GNOME-TERMINAL"
-            apt install gnome-terminal
+            sudo apt install gnome-terminal
             # This is needed to show the icon in Chrome OS desktop
             cp ./gnome-terminal.desktop /usr/share/applications/
         elif [[ $doGnome = "q" ]]; then
