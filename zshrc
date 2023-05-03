@@ -3,7 +3,7 @@ ZSH_THEME="agnoster"
 DISABLE_AUTO_UPDATE="true"
 DISABLE_LS_COLORS="true"
 DEFAULT_USER="$(whoami)"
-prompt_context(){}
+# prompt_context(){}
 
 plugins=(git bundler brew gem rbates)
 
